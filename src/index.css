@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/cinzel';
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/400-italic.css';
+@import '@fontsource/spectral/600.css';
+
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('./assets/fonts/Silkscreen-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Same palette as the game client (diablo-idle/src/styles.css), plus the ember
+   red of the logo. */
+@theme {
+  --color-void: #07060a;
+  --color-bg: #0d0b12;
+  --color-panel: #17141f;
+  --color-panel-hi: #1f1a2a;
+  --color-edge: #2c2638;
+  --color-edge-hi: #463c58;
+  --color-ink: #d9d2c3;
+  --color-muted: #8a8296;
+  --color-gold: #c9a45c;
+  --color-gold-hi: #e8c45c;
+  --color-ember: #d0463c;
+  --color-ember-hi: #ff6a3d;
+  --color-blood: #6e1a14;
+  --color-life: #4caf50;
+  --color-mana: #3f7fdc;
+
+  --color-normal: #d8d4cc;
+  --color-magic: #6f8cff;
+  --color-rare: #f2d25a;
+  --color-set: #5fd66b;
+  --color-unique: #e8913a;
+  --color-legendary: #ff5a3c;
+  --color-enchant: #c58cff;
+  --color-gem: #7fd6e8;
+
+  --color-paladin: #d9b45a;
+  --color-barbarian: #c8553d;
+  --color-archer: #6fae4f;
+  --color-sorceress: #5b8fe0;
+  --color-priestess: #d7cfe8;
+
+  --font-display: 'Cinzel Variable', 'Cinzel', Georgia, serif;
+  --font-body: 'Spectral', Georgia, serif;
+  --font-pixel: 'Silkscreen', ui-monospace, monospace;
+
+  --animate-ember: ember 7s linear infinite backwards;
+  --animate-flicker: flicker 3.2s ease-in-out infinite;
+
+  @keyframes ember {
+    0% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(var(--drift, 20px), -70vh, 0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes flicker {
+    0%,
+    100% {
+      opacity: 0.85;
+    }
+    45% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.7;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+    color-scheme: dark;
+    background: var(--color-void);
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-blood);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+@layer components {
+  /* Square game panel with a bevel, like the client's frames. */
+  .panel {
+    background: linear-gradient(180deg, var(--color-panel-hi), var(--color-panel));
+    border: 1px solid var(--color-edge);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 4%),
+      inset 0 0 0 1px rgb(0 0 0 / 40%),
+      0 10px 30px -12px rgb(0 0 0 / 70%);
+  }
+
+  /* Small gold corner studs on a panel. */
+  .studs {
+    position: relative;
+  }
+  .studs::before,
+  .studs::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 1px var(--color-void);
+    pointer-events: none;
+  }
+  .studs::before {
+    top: -3px;
+    left: -3px;
+  }
+  .studs::after {
+    right: -3px;
+    bottom: -3px;
+  }
+
+  .pixel-label {
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Cracked-gold title text, echoing the logo. */
+  .title-gold {
+    background: linear-gradient(180deg, #f3e3b8 0%, #d9b46a 45%, #9b6a2c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 0 rgb(0 0 0 / 80%)) drop-shadow(0 0 18px rgb(208 70 60 / 25%));
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.6rem;
+    font-family: var(--font-pixel);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid;
+    transition:
+      transform 120ms ease,
+      background-color 160ms ease,
+      box-shadow 160ms ease,
+      color 160ms ease;
+  }
+  @media (max-width: 480px) {
+    .btn {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+    }
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    color: #1a0e08;
+    background: linear-gradient(180deg, #f0d184, #c9a45c 55%, #a07a38);
+    border-color: #f6e2a8;
+    box-shadow:
+      0 0 0 1px var(--color-void),
+      0 0 0 3px #6b4b1f,
+      0 0 24px -2px rgb(232 196 92 / 45%);
+  }
+  .btn-primary:hover {
+    box-shadow:
+      0 0 0 1px var(--color-void),
+      0 0 0 3px #8a6427,
+      0 0 36px 0 rgb(255 106 61 / 55%);
+  }
+
+  .btn-ghost {
+    color: var(--color-ink);
+    background: rgb(13 11 18 / 60%);
+    border-color: var(--color-edge-hi);
+  }
+  .btn-ghost:hover {
+    color: var(--color-gold-hi);
+    border-color: var(--color-gold);
+    background: rgb(23 20 31 / 85%);
+  }
+
+  /* Faint scanline + noise texture for dark sections. */
+  .grain {
+    background-image:
+      repeating-linear-gradient(0deg, rgb(255 255 255 / 1.5%) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at 50% 0%, rgb(208 70 60 / 8%), transparent 60%);
+  }
+}

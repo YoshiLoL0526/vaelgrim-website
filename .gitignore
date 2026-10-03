@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+*.zip
+
+# Build-time settings: keep only the example in git.
+.env
+.env.*
+!.env.example
