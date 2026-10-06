@@ -22,7 +22,7 @@ export interface Act {
 }
 
 export interface Copy {
-  nav: { heroes: string; world: string; loot: string; endgame: string; play: string };
+  nav: { heroes: string; world: string; loot: string; endgame: string; follow: string };
   langLabel: string;
   hero: { kicker: string; tagline: string[]; lead: string; play: string; trailer: string };
   pillars: { icon: PillarIcon; title: string; text: string }[];
@@ -68,9 +68,9 @@ export interface Copy {
     lead: string;
     modes: { name: string; tag: string; text: string }[];
   };
-  art: { kicker: string; title: string; text: string; painted: string; pixel: string };
+  art: { kicker: string; title: string; text: string; painted: string; combat: string };
   cta: { title: string; text: string; play: string; note: string };
-  footer: { tagline: string; rights: string; original: string; top: string };
+  footer: { tagline: string; rights: string; original: string; disclaimer: string; top: string };
 }
 
 export type Rarity = 'normal' | 'magic' | 'rare' | 'set' | 'unique' | 'legendary';
@@ -85,13 +85,13 @@ const ZONES = {
 const has = (party: HeroId[], id: HeroId) => party.includes(id);
 
 const en: Copy = {
-  nav: { heroes: 'Heroes', world: 'World', loot: 'Loot', endgame: 'Endgame', play: 'Play now' },
+  nav: { heroes: 'Heroes', world: 'World', loot: 'Loot', endgame: 'Endgame', follow: 'Follow on X' },
   langLabel: 'Español',
   hero: {
     kicker: 'Dark fantasy idle RPG',
     tagline: ['Five heroes.', 'One fate.', 'Your own legend.'],
     lead: 'Your party fights on its own, wave after wave, act after act. You make the calls that matter: who goes, what they learn, what they wear and where they farm.',
-    play: 'Play free in your browser',
+    play: 'Follow us on X',
     trailer: 'Discover the game',
   },
   pillars: [
@@ -265,30 +265,32 @@ const en: Copy = {
     title: 'A dark world, pixel by pixel',
     text: 'Side-view battles with animated sprites, and every spell, hit and aura drawn by code.',
     painted: 'Key art',
-    pixel: 'In-game style',
+    combat: 'Real in-game combat',
   },
   cta: {
     title: 'Your legend starts now',
-    text: 'Free to play in your browser. No download, no install: create an account and your party is ready to march.',
-    play: 'Play Vaelgrim',
-    note: 'Desktop browser recommended',
+    text: 'Vaelgrim is on its way: free to play, right in your browser. Follow us on X for news, previews and the launch date.',
+    play: 'Follow @playvaelgrim',
+    note: 'Coming soon to your browser',
   },
   footer: {
     tagline: 'A dark fantasy idle RPG.',
     rights: 'All rights reserved.',
     original: 'An original game: its world, heroes and names are its own.',
+    disclaimer:
+      'Inspired by Diablo II. Vaelgrim is an independent project, not affiliated with, endorsed by or sponsored by Blizzard Entertainment.',
     top: 'Back to top',
   },
 };
 
 const es: Copy = {
-  nav: { heroes: 'Héroes', world: 'Mundo', loot: 'Botín', endgame: 'Endgame', play: 'Jugar ahora' },
+  nav: { heroes: 'Héroes', world: 'Mundo', loot: 'Botín', endgame: 'Endgame', follow: 'Síguenos en X' },
   langLabel: 'English',
   hero: {
     kicker: 'RPG idle de fantasía oscura',
     tagline: ['5 héroes.', 'Un mismo destino.', 'Tu propia leyenda.'],
     lead: 'Tu grupo pelea solo, oleada tras oleada, acto tras acto. Tú tomas las decisiones que importan: quién va, qué aprende, qué equipo lleva y dónde farmea.',
-    play: 'Juega gratis en el navegador',
+    play: 'Síguenos en X',
     trailer: 'Descubre el juego',
   },
   pillars: [
@@ -462,18 +464,20 @@ const es: Copy = {
     title: 'Un mundo oscuro, píxel a píxel',
     text: 'Combates de vista lateral con sprites animados, y cada hechizo, golpe y aura dibujado por código.',
     painted: 'Arte promocional',
-    pixel: 'Estilo del juego',
+    combat: 'Combate real del juego',
   },
   cta: {
     title: 'Tu leyenda empieza ahora',
-    text: 'Gratis en el navegador. Sin descargas ni instalación: crea una cuenta y tu grupo estará listo para marchar.',
-    play: 'Jugar a Vaelgrim',
-    note: 'Recomendado en navegador de escritorio',
+    text: 'Vaelgrim está en camino: gratis y directo en el navegador. Síguenos en X para enterarte de novedades, adelantos y la fecha de lanzamiento.',
+    play: 'Seguir a @playvaelgrim',
+    note: 'Muy pronto en tu navegador',
   },
   footer: {
     tagline: 'Un RPG idle de fantasía oscura.',
     rights: 'Todos los derechos reservados.',
     original: 'Un juego original: su mundo, sus héroes y sus nombres son propios.',
+    disclaimer:
+      'Inspirado en Diablo II. Vaelgrim es un proyecto independiente, sin afiliación, respaldo ni patrocinio de Blizzard Entertainment.',
     top: 'Volver arriba',
   },
 };

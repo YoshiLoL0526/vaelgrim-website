@@ -1,7 +1,7 @@
 import heroArt from '../assets/img/hero-guardian.webp';
 import { useLang } from '../i18n.tsx';
 import { PixelIcon } from './PixelIcon.tsx';
-import { Embers, GAME_URL } from './ui.tsx';
+import { Embers, TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Hero() {
   return (
@@ -50,8 +50,8 @@ function HeroCopy() {
       </p>
       <p className="mx-auto mt-4 max-w-2xl text-base text-ink/75 lg:text-lg">{t.hero.lead}</p>
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a href={GAME_URL} className="btn btn-primary">
-          <PixelIcon name="sword" className="size-4" />
+        <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          <XLogo className="size-4" />
           {t.hero.play}
         </a>
         <a href="#about" className="btn btn-ghost">

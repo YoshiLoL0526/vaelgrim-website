@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import emblem from '../assets/img/emblem-small.webp';
 import { useLang } from '../i18n.tsx';
-import { GAME_URL } from './ui.tsx';
+import { TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Nav() {
   const { lang, t, toggle } = useLang();
@@ -58,8 +58,14 @@ export function Nav() {
               </span>
             ))}
           </button>
-          <a href={GAME_URL} className="btn btn-primary hidden !px-4 !py-2 sm:inline-flex">
-            {t.nav.play}
+          <a
+            href={TWITTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary hidden !px-4 !py-2 sm:inline-flex"
+          >
+            <XLogo className="size-3.5" />
+            {t.nav.follow}
           </a>
           <button
             type="button"
@@ -92,8 +98,9 @@ export function Nav() {
             </li>
           ))}
           <li className="pt-5">
-            <a href={GAME_URL} className="btn btn-primary w-full">
-              {t.nav.play}
+            <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full">
+              <XLogo className="size-3.5" />
+              {t.nav.follow}
             </a>
           </li>
         </ul>
