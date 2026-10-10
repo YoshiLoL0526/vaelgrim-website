@@ -1,12 +1,12 @@
 import heroArt from '../assets/img/hero-guardian.webp';
 import { useLang } from '../i18n.tsx';
 import { PixelIcon } from './PixelIcon.tsx';
-import { Embers, TWITTER_URL, XLogo } from './ui.tsx';
+import { DISCORD_URL, DiscordLogo, Embers, TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Hero() {
   return (
     <section id="top" className="relative bg-void">
-      <h1 className="sr-only">Vaelgrim — Idle RPG</h1>
+      <h1 className="sr-only">Vaelgrim — Web3 Idle RPG</h1>
 
       {/* The key art carries the logo, so it is never cropped from the sides. */}
       <div className="relative mx-auto max-w-[1920px] overflow-hidden">
@@ -41,6 +41,7 @@ function HeroCopy() {
   const { t } = useLang();
   return (
     <div className="mx-auto max-w-3xl text-center">
+      <p className="pixel-label mb-4 text-ember-hi">{t.hero.kicker}</p>
       <p className="font-display text-xl leading-snug font-semibold tracking-wide text-ink sm:text-2xl lg:text-3xl">
         {t.hero.tagline.map((line, i) => (
           <span key={line} className={i === 2 ? 'text-gold-hi' : ''}>
@@ -50,8 +51,12 @@ function HeroCopy() {
       </p>
       <p className="mx-auto mt-4 max-w-2xl text-base text-ink/75 lg:text-lg">{t.hero.lead}</p>
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-          <XLogo className="size-4" />
+        <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          <DiscordLogo className="size-4" />
+          {t.hero.discord}
+        </a>
+        <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+          <XLogo className="size-3.5" />
           {t.hero.play}
         </a>
         <a href="#about" className="btn btn-ghost">

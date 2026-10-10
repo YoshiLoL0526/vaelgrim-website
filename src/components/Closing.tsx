@@ -5,7 +5,18 @@ import painted from '../assets/img/heroes-painted.webp';
 import combatMp4 from '../assets/video/combat.mp4';
 import combatWebm from '../assets/video/combat.webm';
 import { useLang } from '../i18n.tsx';
-import { Embers, Ornament, TWITTER_URL, XLogo, Section, SectionHeading } from './ui.tsx';
+import {
+  CONTACT_EMAIL,
+  DISCORD_URL,
+  DiscordLogo,
+  Embers,
+  MailIcon,
+  Ornament,
+  TWITTER_URL,
+  XLogo,
+  Section,
+  SectionHeading,
+} from './ui.tsx';
 
 export function Art() {
   const { t } = useLang();
@@ -73,11 +84,23 @@ export function CallToAction() {
         <h2 className="title-gold -mt-4 font-display text-3xl font-bold sm:text-4xl">{t.cta.title}</h2>
         <Ornament className="mt-5" />
         <p className="mx-auto mt-6 max-w-xl text-lg text-ink/80">{t.cta.text}</p>
-        <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-9 !px-8 !py-4 text-sm">
-          <XLogo className="size-4" />
-          {t.cta.play}
-        </a>
+        <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary !px-8 !py-4 text-sm">
+            <DiscordLogo className="size-4" />
+            {t.cta.discord}
+          </a>
+          <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost !px-8 !py-4 text-sm">
+            <XLogo className="size-4" />
+            {t.cta.play}
+          </a>
+        </div>
         <p className="pixel-label mt-5 text-[0.58rem] text-muted">{t.cta.note}</p>
+        <p className="mt-6 text-sm text-muted">
+          {t.cta.contact}:{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="text-gold-hi underline-offset-4 hover:underline">
+            {CONTACT_EMAIL}
+          </a>
+        </p>
       </div>
     </section>
   );
@@ -96,6 +119,39 @@ export function Footer() {
           <p className="mt-1">
             © {year} Vaelgrim. {t.footer.rights} {t.footer.original}
           </p>
+          <ul className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:justify-start">
+            <li>
+              <a
+                href={DISCORD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-ink/80 transition-colors hover:text-gold-hi"
+              >
+                <DiscordLogo className="size-3.5" />
+                {t.footer.discord}
+              </a>
+            </li>
+            <li>
+              <a
+                href={TWITTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-ink/80 transition-colors hover:text-gold-hi"
+              >
+                <XLogo className="size-3" />
+                @playvaelgrim
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="inline-flex items-center gap-1.5 text-ink/80 transition-colors hover:text-gold-hi"
+              >
+                <MailIcon className="size-3.5" />
+                {CONTACT_EMAIL}
+              </a>
+            </li>
+          </ul>
           <p className="mt-3 max-w-2xl text-xs text-muted/80">{t.footer.disclaimer}</p>
         </div>
         <a href="#top" className="pixel-label text-muted transition-colors hover:text-gold-hi md:ml-auto">

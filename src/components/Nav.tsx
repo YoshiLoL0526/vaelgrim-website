@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import emblem from '../assets/img/emblem-small.webp';
 import { useLang } from '../i18n.tsx';
-import { TWITTER_URL, XLogo } from './ui.tsx';
+import { DISCORD_URL, DiscordLogo, TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Nav() {
   const { lang, t, toggle } = useLang();
@@ -59,13 +59,26 @@ export function Nav() {
             ))}
           </button>
           <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={t.nav.discord}
+            aria-label={t.nav.discord}
+            className="btn btn-primary hidden !px-4 !py-2 sm:inline-flex"
+          >
+            <DiscordLogo className="size-4" />
+            <span className="hidden lg:inline">{t.nav.discord}</span>
+          </a>
+          <a
             href={TWITTER_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary hidden !px-4 !py-2 sm:inline-flex"
+            title={t.nav.follow}
+            aria-label={t.nav.follow}
+            className="btn btn-ghost hidden !px-4 !py-2 sm:inline-flex"
           >
             <XLogo className="size-3.5" />
-            {t.nav.follow}
+            <span className="hidden lg:inline">{t.nav.follow}</span>
           </a>
           <button
             type="button"
@@ -97,8 +110,12 @@ export function Nav() {
               </a>
             </li>
           ))}
-          <li className="pt-5">
-            <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full">
+          <li className="flex flex-col gap-3 pt-5">
+            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full">
+              <DiscordLogo className="size-4" />
+              {t.nav.discord}
+            </a>
+            <a href={TWITTER_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost w-full">
               <XLogo className="size-3.5" />
               {t.nav.follow}
             </a>

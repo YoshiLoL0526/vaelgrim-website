@@ -22,9 +22,9 @@ export interface Act {
 }
 
 export interface Copy {
-  nav: { heroes: string; world: string; loot: string; endgame: string; follow: string };
+  nav: { heroes: string; world: string; loot: string; endgame: string; follow: string; discord: string };
   langLabel: string;
-  hero: { kicker: string; tagline: string[]; lead: string; play: string; trailer: string };
+  hero: { kicker: string; tagline: string[]; lead: string; play: string; trailer: string; discord: string };
   pillars: { icon: PillarIcon; title: string; text: string }[];
   about: {
     kicker: string;
@@ -69,8 +69,8 @@ export interface Copy {
     modes: { name: string; tag: string; text: string }[];
   };
   art: { kicker: string; title: string; text: string; painted: string; combat: string };
-  cta: { title: string; text: string; play: string; note: string };
-  footer: { tagline: string; rights: string; original: string; disclaimer: string; top: string };
+  cta: { title: string; text: string; play: string; note: string; discord: string; contact: string };
+  footer: { tagline: string; rights: string; original: string; disclaimer: string; top: string; discord: string };
 }
 
 export type Rarity = 'normal' | 'magic' | 'rare' | 'set' | 'unique' | 'legendary';
@@ -85,14 +85,15 @@ const ZONES = {
 const has = (party: HeroId[], id: HeroId) => party.includes(id);
 
 const en: Copy = {
-  nav: { heroes: 'Heroes', world: 'World', loot: 'Loot', endgame: 'Endgame', follow: 'Follow on X' },
+  nav: { heroes: 'Heroes', world: 'World', loot: 'Loot', endgame: 'Endgame', follow: 'Follow on X', discord: 'Discord' },
   langLabel: 'Español',
   hero: {
-    kicker: 'Dark fantasy idle RPG',
+    kicker: 'Web3 dark fantasy idle RPG',
     tagline: ['Five heroes.', 'One fate.', 'Your own legend.'],
     lead: 'Your party fights on its own, wave after wave, act after act. You make the calls that matter: who goes, what they learn, what they wear and where they farm.',
     play: 'Follow us on X',
     trailer: 'Discover the game',
+    discord: 'Join the Discord',
   },
   pillars: [
     { icon: 'sword', title: 'Build your heroes', text: 'Skills, talents and gear for every hero.' },
@@ -104,7 +105,7 @@ const en: Copy = {
     kicker: 'The pitch',
     title: 'You don’t swing the sword. You design the party.',
     body: [
-      'Vaelgrim is a side-view idle RPG in pixel art. Three heroes push through a grim world, facing waves of undead, orcs and demons. Combat is automatic; the depth is in the decisions.',
+      'Vaelgrim is a Web3 game: a side-view idle RPG in pixel art. Three heroes push through a grim world, facing waves of undead, orcs and demons. Combat is automatic; the depth is in the decisions.',
       'Choose three of five classes, shape each one with skills and a talent tree, socket gems, enchant your gear and pick where to farm next. Loot is the heart of the game.',
     ],
     stats: [
@@ -269,29 +270,33 @@ const en: Copy = {
   },
   cta: {
     title: 'Your legend starts now',
-    text: 'Vaelgrim is on its way: free to play, right in your browser. Follow us on X for news, previews and the launch date.',
+    text: 'Vaelgrim is on its way: free to play, right in your browser. Join the Discord and follow us on X for news, previews and the launch date.',
     play: 'Follow @playvaelgrim',
     note: 'Coming soon to your browser',
+    discord: 'Join the Discord',
+    contact: 'Contact',
   },
   footer: {
-    tagline: 'A dark fantasy idle RPG.',
+    tagline: 'A dark fantasy Web3 idle RPG.',
     rights: 'All rights reserved.',
     original: 'An original game: its world, heroes and names are its own.',
     disclaimer:
       'Inspired by Diablo II. Vaelgrim is an independent project, not affiliated with, endorsed by or sponsored by Blizzard Entertainment.',
     top: 'Back to top',
+    discord: 'Discord',
   },
 };
 
 const es: Copy = {
-  nav: { heroes: 'Héroes', world: 'Mundo', loot: 'Botín', endgame: 'Endgame', follow: 'Síguenos en X' },
+  nav: { heroes: 'Héroes', world: 'Mundo', loot: 'Botín', endgame: 'Endgame', follow: 'Síguenos en X', discord: 'Discord' },
   langLabel: 'English',
   hero: {
-    kicker: 'RPG idle de fantasía oscura',
+    kicker: 'RPG idle Web3 de fantasía oscura',
     tagline: ['5 héroes.', 'Un mismo destino.', 'Tu propia leyenda.'],
     lead: 'Tu grupo pelea solo, oleada tras oleada, acto tras acto. Tú tomas las decisiones que importan: quién va, qué aprende, qué equipo lleva y dónde farmea.',
     play: 'Síguenos en X',
     trailer: 'Descubre el juego',
+    discord: 'Únete al Discord',
   },
   pillars: [
     { icon: 'sword', title: 'Mejora tus héroes', text: 'Habilidades, talentos y equipo para cada uno.' },
@@ -303,7 +308,7 @@ const es: Copy = {
     kicker: 'La idea',
     title: 'Tú no blandes la espada. Tú diseñas al grupo.',
     body: [
-      'Vaelgrim es un RPG idle de vista lateral en pixel art. Tres héroes se abren paso por un mundo sombrío entre oleadas de muertos vivientes, orcos y demonios. El combate es automático; la profundidad está en las decisiones.',
+      'Vaelgrim es un juego Web3: un RPG idle de vista lateral en pixel art. Tres héroes se abren paso por un mundo sombrío entre oleadas de muertos vivientes, orcos y demonios. El combate es automático; la profundidad está en las decisiones.',
       'Elige tres de cinco clases, dales forma con habilidades y un árbol de talentos, engarza gemas, encanta el equipo y decide dónde farmear después. El botín es el corazón del juego.',
     ],
     stats: [
@@ -468,17 +473,20 @@ const es: Copy = {
   },
   cta: {
     title: 'Tu leyenda empieza ahora',
-    text: 'Vaelgrim está en camino: gratis y directo en el navegador. Síguenos en X para enterarte de novedades, adelantos y la fecha de lanzamiento.',
+    text: 'Vaelgrim está en camino: gratis y directo en el navegador. Únete al Discord y síguenos en X para enterarte de novedades, adelantos y la fecha de lanzamiento.',
     play: 'Seguir a @playvaelgrim',
     note: 'Muy pronto en tu navegador',
+    discord: 'Únete al Discord',
+    contact: 'Contacto',
   },
   footer: {
-    tagline: 'Un RPG idle de fantasía oscura.',
+    tagline: 'Un RPG idle Web3 de fantasía oscura.',
     rights: 'Todos los derechos reservados.',
     original: 'Un juego original: su mundo, sus héroes y sus nombres son propios.',
     disclaimer:
       'Inspirado en Diablo II. Vaelgrim es un proyecto independiente, sin afiliación, respaldo ni patrocinio de Blizzard Entertainment.',
     top: 'Volver arriba',
+    discord: 'Discord',
   },
 };
 
