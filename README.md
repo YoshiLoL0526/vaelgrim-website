@@ -23,9 +23,14 @@ Son valores públicos que se incrustan al compilar: cámbialos y vuelve a ejecut
 
 ## Subir a Hostinger
 
-1. Con el `.env` listo, `npm run build`.
-2. Comprime **el contenido** de `dist/` (incluido el `.htaccess` oculto) en un zip, súbelo a
-   `public_html/` con el Administrador de archivos y extráelo ahí (o súbelo por FTP).
+1. Con el `.env` listo, ejecuta `bash scripts/package-hostinger.sh` (en Windows, desde Git Bash):
+   compila el sitio y genera `vaelgrim-hostinger.zip` en la raíz del proyecto, con el contenido
+   de `dist/` en la raíz del zip (incluido el `.htaccess` oculto). Acepta otra ruta como
+   argumento: `bash scripts/package-hostinger.sh otro-nombre.zip`.
+2. Sube el zip a `public_html/` con el Administrador de archivos (o FTP) y extrae el contenido ahí.
+
+También puedes hacerlo a mano: `npm run build` y comprimir **el contenido** de `dist/` (incluido
+el `.htaccess` oculto) en un zip.
 
 Todas las rutas son relativas (`base: './'`), así que también funciona dentro de una subcarpeta.
 
