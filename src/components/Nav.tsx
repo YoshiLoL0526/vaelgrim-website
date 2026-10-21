@@ -4,7 +4,7 @@ import { useLang } from '../i18n.tsx';
 import { DISCORD_URL, DiscordLogo, TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Nav() {
-  const { lang, t, toggle } = useLang();
+  const { lang, t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -21,6 +21,19 @@ export function Nav() {
     { href: '#loot', label: t.nav.loot },
     { href: '#endgame', label: t.nav.endgame },
   ];
+
+  // Real links between the two language URLs: crawlable and shareable.
+  const languageLinks =
+    lang === 'en'
+      ? [
+          { code: 'en' as const, label: 'EN', name: 'English', href: './' },
+          { code: 'es' as const, label: 'ES', name: 'Español', href: './es/' },
+        ]
+      : [
+          { code: 'en' as const, label: 'EN', name: 'English', href: '../' },
+          { code: 'es' as const, label: 'ES', name: 'Español', href: './' },
+        ];
+
   const solid = scrolled || open;
 
   return (
@@ -29,7 +42,7 @@ export function Nav() {
         solid ? 'border-b border-edge bg-bg/90 backdrop-blur-md' : 'border-b border-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6" aria-label="Main">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6" aria-label={t.nav.main}>
         <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <img src={emblem} alt="" width={36} height={36} className="size-9 rounded-full" />
           <span className="title-gold font-display text-xl font-bold tracking-[0.12em]">VAELGRIM</span>
@@ -46,18 +59,27 @@ export function Nav() {
         </ul>
 
         <div className="ml-auto flex items-center gap-3 md:ml-0">
-          <button
-            type="button"
-            onClick={toggle}
-            className="pixel-label flex border border-edge-hi text-muted transition-colors hover:border-gold"
+          <div
+            role="group"
             aria-label={t.langLabel}
+            className="pixel-label flex border border-edge-hi text-muted transition-colors hover:border-gold"
           >
-            {(['en', 'es'] as const).map((l) => (
-              <span key={l} className={`px-2 py-1.5 ${lang === l ? 'bg-gold/15 text-gold-hi' : ''}`}>
-                {l.toUpperCase()}
-              </span>
+            {languageLinks.map((l) => (
+              <a
+                key={l.code}
+                href={l.href}
+                hrefLang={l.code}
+                lang={l.code}
+                aria-label={l.name}
+                aria-current={lang === l.code ? 'page' : undefined}
+                className={`inline-flex items-center px-2 py-1.5 transition-colors hover:text-gold-hi ${
+                  lang === l.code ? 'bg-gold/15 text-gold-hi' : ''
+                }`}
+              >
+                {l.label}
+              </a>
             ))}
-          </button>
+          </div>
           <a
             href={DISCORD_URL}
             target="_blank"
@@ -85,7 +107,7 @@ export function Nav() {
             className="grid size-10 place-items-center border border-edge-hi text-ink md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label="Menu"
+            aria-label={t.nav.menu}
             onClick={() => setOpen((o) => !o)}
           >
             <span className="flex w-4 flex-col gap-1" aria-hidden="true">

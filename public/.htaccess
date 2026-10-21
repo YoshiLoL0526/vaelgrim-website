@@ -1,20 +1,98 @@
-# Hostinger (Apache/LiteSpeed): long cache for hashed assets, none for the page.
+# Vaelgrim — static site on Apache/LiteSpeed (Hostinger).
+# Extracted at the root of public_html; no Node runtime is involved.
+
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+Options -Indexes -MultiViews
+
+# --- One canonical URL: HTTPS, no www ----------------------------------------
+# Only touches the production domain, so staging or addon domains keep working.
+# X-Forwarded-Proto avoids a redirect loop when TLS ends at a proxy.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?vaelgrim\.com$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+  RewriteRule ^ https://vaelgrim.com%{REQUEST_URI} [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^www\.vaelgrim\.com$ [NC]
+  RewriteRule ^ https://vaelgrim.com%{REQUEST_URI} [L,R=301]
+
+  # /index.html and / are the same page: keep a single URL.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [L,R=301]
+
+  RewriteCond %{THE_REQUEST} \s/+es/index\.html[\s?] [NC]
+  RewriteRule ^ /es/ [L,R=301]
+
+  # Keep the language URL canonical: /es/ (with trailing slash).
+  RewriteRule ^es$ /es/ [L,R=301]
+</IfModule>
+
+# --- Friendly 404 ------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# --- MIME types --------------------------------------------------------------
+AddType application/javascript .js .mjs
+AddType application/json .json
+AddType application/manifest+json .webmanifest
+AddType application/xml .xml
+AddType image/webp .webp
+AddType image/avif .avif
+AddType font/woff2 .woff2
+AddType video/mp4 .mp4
+AddType video/webm .webm
+
+# --- Compression -------------------------------------------------------------
+# Brotli when the host has it, DEFLATE otherwise. Do not re-compress woff2,
+# webp, mp4 or webm: they are already compressed.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>
+<IfModule !mod_brotli.c>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/javascript application/json application/xml image/svg+xml
+  </IfModule>
+</IfModule>
+
+# --- Caching -----------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 hour"
+  ExpiresByType text/plain "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType video/mp4 "access plus 1 year"
   ExpiresByType video/webm "access plus 1 year"
-  ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType font/ttf "access plus 1 year"
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
 </IfModule>
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+
+<IfModule mod_headers.c>
+  # Vite fingerprints everything under /assets/, so it can be cached forever.
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "(^|/)assets/" IMMUTABLE_ASSET
+    Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE_ASSET
+  </IfModule>
+
+  # The HTML must be revalidated so a new deploy is visible immediately.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(?:xml|txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  <FilesMatch "\.(?:png|jpe?g|ico)$">
+    Header set Cache-Control "public, max-age=604800" env=!IMMUTABLE_ASSET
+  </FilesMatch>
+
+  Header always set Vary "Accept-Encoding"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
 </IfModule>
-AddType image/webp .webp
-AddType video/mp4 .mp4
-AddType video/webm .webm
-AddType font/woff2 .woff2
-Options -Indexes

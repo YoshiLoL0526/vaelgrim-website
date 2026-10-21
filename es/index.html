@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vaelgrim — RPG idle Web3 de fantasía oscura</title>
+    <meta
+      name="description"
+      content="Vaelgrim es un RPG idle Web3 de fantasía oscura en pixel art, muy pronto en tu navegador. Elige tres de cinco héroes, crea sus builds y persigue botín."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0d0b12" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="application-name" content="Vaelgrim" />
+    <link rel="canonical" href="%VITE_SITE_URL%/es/" />
+    <link rel="alternate" hreflang="en" href="%VITE_SITE_URL%/" />
+    <link rel="alternate" hreflang="es" href="%VITE_SITE_URL%/es/" />
+    <link rel="alternate" hreflang="x-default" href="%VITE_SITE_URL%/" />
+    <link rel="icon" type="image/png" sizes="64x64" href="../favicon.png" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+    <link rel="sitemap" type="application/xml" href="../sitemap.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vaelgrim" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Vaelgrim — RPG idle Web3 de fantasía oscura" />
+    <meta
+      property="og:description"
+      content="Cinco héroes. Un mismo destino. Tu propia leyenda. Un RPG idle en pixel art, muy pronto en tu navegador."
+    />
+    <meta property="og:url" content="%VITE_SITE_URL%/es/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Arte de Vaelgrim: un guardián oscuro en un mundo de fantasía en ruinas" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@playvaelgrim" />
+    <meta name="twitter:creator" content="@playvaelgrim" />
+    <meta name="twitter:title" content="Vaelgrim — RPG idle Web3 de fantasía oscura" />
+    <meta
+      name="twitter:description"
+      content="Cinco héroes. Un mismo destino. Tu propia leyenda. Un RPG idle en pixel art, muy pronto en tu navegador."
+    />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Arte de Vaelgrim: un guardián oscuro en un mundo de fantasía en ruinas" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "%VITE_SITE_URL%/#website",
+            "url": "%VITE_SITE_URL%/",
+            "name": "Vaelgrim",
+            "description": "Un RPG idle Web3 de fantasía oscura en pixel art, gratis y muy pronto en tu navegador.",
+            "inLanguage": ["en", "es"],
+            "publisher": { "@id": "%VITE_SITE_URL%/#organization" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "%VITE_SITE_URL%/es/#webpage",
+            "url": "%VITE_SITE_URL%/es/",
+            "name": "Vaelgrim — RPG idle Web3 de fantasía oscura",
+            "description": "Vaelgrim es un RPG idle Web3 de fantasía oscura en pixel art, muy pronto en tu navegador. Elige tres de cinco héroes, crea sus builds y persigue botín.",
+            "inLanguage": "es",
+            "isPartOf": { "@id": "%VITE_SITE_URL%/#website" },
+            "about": { "@id": "%VITE_SITE_URL%/#videogame" },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "%VITE_SITE_URL%/og-image.jpg",
+              "width": 1200,
+              "height": 630
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "%VITE_SITE_URL%/#organization",
+            "name": "Vaelgrim",
+            "url": "%VITE_SITE_URL%/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "%VITE_SITE_URL%/apple-touch-icon.png",
+              "width": 180,
+              "height": 180
+            },
+            "sameAs": ["https://x.com/playvaelgrim", "https://discord.gg/cpzhmGmRm"],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "contact@vaelgrim.com",
+              "contactType": "customer support"
+            }
+          },
+          {
+            "@type": "VideoGame",
+            "@id": "%VITE_SITE_URL%/#videogame",
+            "name": "Vaelgrim",
+            "url": "%VITE_SITE_URL%/",
+            "description": "Vaelgrim es un RPG idle Web3 de fantasía oscura en pixel art. Forma un grupo de tres entre cinco héroes, define sus habilidades y equipo, y persigue botín por cuatro actos en tu navegador.",
+            "genre": ["Idle RPG", "Action RPG", "Dark fantasy"],
+            "gamePlatform": ["Web browser"],
+            "playMode": ["SinglePlayer", "MultiPlayer"],
+            "image": "%VITE_SITE_URL%/og-image.jpg",
+            "inLanguage": ["en", "es"],
+            "isAccessibleForFree": true,
+            "publisher": { "@id": "%VITE_SITE_URL%/#organization" },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "description": "Gratis en tu navegador. Muy pronto."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

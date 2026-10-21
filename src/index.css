@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/cinzel';
-@import '@fontsource/spectral/400.css';
-@import '@fontsource/spectral/400-italic.css';
-@import '@fontsource/spectral/600.css';
+@import '@fontsource/spectral/latin-400.css';
+@import '@fontsource/spectral/latin-400-italic.css';
+@import '@fontsource/spectral/latin-600.css';
 
 @font-face {
   font-family: 'Silkscreen';

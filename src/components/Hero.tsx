@@ -1,21 +1,27 @@
 import heroArt from '../assets/img/hero-guardian.webp';
+import heroArt1280 from '../assets/img/hero-guardian-1280.webp';
+import heroArt768 from '../assets/img/hero-guardian-768.webp';
 import { useLang } from '../i18n.tsx';
 import { PixelIcon } from './PixelIcon.tsx';
 import { DISCORD_URL, DiscordLogo, Embers, TWITTER_URL, XLogo } from './ui.tsx';
 
 export function Hero() {
+  const { t } = useLang();
   return (
     <section id="top" className="relative bg-void">
-      <h1 className="sr-only">Vaelgrim — Web3 Idle RPG</h1>
+      <h1 className="sr-only">{t.hero.heading}</h1>
 
       {/* The key art carries the logo, so it is never cropped from the sides. */}
       <div className="relative mx-auto max-w-[1920px] overflow-hidden">
         <img
-          src={heroArt}
-          alt=""
+          src={heroArt1280}
+          srcSet={`${heroArt768} 768w, ${heroArt1280} 1280w, ${heroArt} 1536w`}
+          sizes="100vw"
+          alt={t.hero.alt}
           width={1536}
           height={845}
           fetchPriority="high"
+          decoding="async"
           className="block aspect-[1536/845] min-h-[300px] w-full object-cover object-top"
         />
         <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-void/80 to-transparent" />

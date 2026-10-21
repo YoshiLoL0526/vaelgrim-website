@@ -32,6 +32,7 @@ export function About() {
             width={640}
             height={640}
             loading="lazy"
+            decoding="async"
             className="relative w-full animate-flicker rounded-full mix-blend-lighten"
           />
         </div>

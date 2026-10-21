@@ -13,6 +13,10 @@ const PIXEL = `${SRC}/Vaelgrim_ Lenda dos Cinco Heróis.png`;
 const EMBLEM = `${SRC}/Emblema Sombrio de Vaelgrim.png`;
 const BANNER = `${SRC}/DC.png`;
 
+/** Full-bleed crops reused at several widths (the site serves them with srcset). */
+const guardian = sharp(GUARDIAN).extract({ left: 0, top: 0, width: 1536, height: 845 });
+const painted = sharp(PAINTED).extract({ left: 0, top: 300, width: 1536, height: 535 });
+
 /** Pixel-art crops of each hero from the pixel key art (left, top, width, height). */
 const PIXEL_HEROES = {
   barbarian: [95, 420, 340, 400],
@@ -23,16 +27,31 @@ const PIXEL_HEROES = {
 };
 
 const jobs = [
-  // Hero: drop the baked-in captions at the bottom, keep the logo.
-  sharp(GUARDIAN)
-    .extract({ left: 0, top: 0, width: 1536, height: 845 })
+  // Hero: drop the baked-in captions at the bottom, keep the logo. The extra
+  // widths keep the LCP image light on phones, where 1536px is overkill.
+  guardian.clone().webp({ quality: 80 }).toFile(`${OUT}/hero-guardian.webp`),
+  guardian
+    .clone()
+    .resize({ width: 1280 })
     .webp({ quality: 80 })
-    .toFile(`${OUT}/hero-guardian.webp`),
+    .toFile(`${OUT}/hero-guardian-1280.webp`),
+  guardian
+    .clone()
+    .resize({ width: 768 })
+    .webp({ quality: 80 })
+    .toFile(`${OUT}/hero-guardian-768.webp`),
   // The five heroes, painted: no logo, no captions.
-  sharp(PAINTED)
-    .extract({ left: 0, top: 300, width: 1536, height: 535 })
+  painted.clone().webp({ quality: 80 }).toFile(`${OUT}/heroes-painted.webp`),
+  painted
+    .clone()
+    .resize({ width: 1280 })
     .webp({ quality: 80 })
-    .toFile(`${OUT}/heroes-painted.webp`),
+    .toFile(`${OUT}/heroes-painted-1280.webp`),
+  painted
+    .clone()
+    .resize({ width: 768 })
+    .webp({ quality: 80 })
+    .toFile(`${OUT}/heroes-painted-768.webp`),
   // The five heroes, pixel art, same band.
   sharp(PIXEL)
     .extract({ left: 0, top: 380, width: 1536, height: 450 })

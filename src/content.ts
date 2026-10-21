@@ -22,9 +22,28 @@ export interface Act {
 }
 
 export interface Copy {
-  nav: { heroes: string; world: string; loot: string; endgame: string; follow: string; discord: string };
+  skip: string;
+  nav: {
+    heroes: string;
+    world: string;
+    loot: string;
+    endgame: string;
+    follow: string;
+    discord: string;
+    main: string;
+    menu: string;
+  };
   langLabel: string;
-  hero: { kicker: string; tagline: string[]; lead: string; play: string; trailer: string; discord: string };
+  hero: {
+    kicker: string;
+    tagline: string[];
+    lead: string;
+    play: string;
+    trailer: string;
+    discord: string;
+    heading: string;
+    alt: string;
+  };
   pillars: { icon: PillarIcon; title: string; text: string }[];
   about: {
     kicker: string;
@@ -69,6 +88,7 @@ export interface Copy {
     modes: { name: string; tag: string; text: string }[];
   };
   art: { kicker: string; title: string; text: string; painted: string; combat: string };
+  faq: { kicker: string; title: string; lead: string; items: { q: string; a: string }[] };
   cta: { title: string; text: string; play: string; note: string; discord: string; contact: string };
   footer: { tagline: string; rights: string; original: string; disclaimer: string; top: string; discord: string };
 }
@@ -85,8 +105,18 @@ const ZONES = {
 const has = (party: HeroId[], id: HeroId) => party.includes(id);
 
 const en: Copy = {
-  nav: { heroes: 'Heroes', world: 'World', loot: 'Loot', endgame: 'Endgame', follow: 'Follow on X', discord: 'Discord' },
-  langLabel: 'Español',
+  skip: 'Skip to content',
+  nav: {
+    heroes: 'Heroes',
+    world: 'World',
+    loot: 'Loot',
+    endgame: 'Endgame',
+    follow: 'Follow on X',
+    discord: 'Discord',
+    main: 'Main',
+    menu: 'Menu',
+  },
+  langLabel: 'Language',
   hero: {
     kicker: 'Web3 dark fantasy idle RPG',
     tagline: ['Five heroes.', 'One fate.', 'Your own legend.'],
@@ -94,6 +124,8 @@ const en: Copy = {
     play: 'Follow us on X',
     trailer: 'Discover the game',
     discord: 'Join the Discord',
+    heading: 'Vaelgrim — a dark fantasy Web3 idle RPG',
+    alt: 'Vaelgrim key art: a hooded guardian before a ruined castle',
   },
   pillars: [
     { icon: 'sword', title: 'Build your heroes', text: 'Skills, talents and gear for every hero.' },
@@ -268,6 +300,33 @@ const en: Copy = {
     painted: 'Key art',
     combat: 'Real in-game combat',
   },
+  faq: {
+    kicker: 'FAQ',
+    title: 'Questions about Vaelgrim',
+    lead: 'What the game is, how it plays and when you can jump in.',
+    items: [
+      {
+        q: 'What is Vaelgrim?',
+        a: 'Vaelgrim is a dark fantasy Web3 idle RPG in pixel art. You lead a party of three heroes through four acts, fighting automatic side-view battles while you plan builds, skills, talents and gear.',
+      },
+      {
+        q: 'Is Vaelgrim free to play?',
+        a: 'Yes. Vaelgrim is free to play in your browser and is coming soon. Join the Discord or follow @playvaelgrim on X for news and the launch date.',
+      },
+      {
+        q: 'Do I need to download anything?',
+        a: 'No. Vaelgrim runs in a modern desktop or mobile browser, so there is nothing to install.',
+      },
+      {
+        q: 'How many heroes can I use?',
+        a: 'Your account has five classes — Paladin, Barbarian, Archer, Sorceress and Priestess — but only three can march at once. Experience is shared, so every party choice is a trade-off.',
+      },
+      {
+        q: 'What is there to do at max level?',
+        a: 'At level 60 the endgame opens up: the Breach for Legendary loot, the daily ranked Endless Descent, and 3v3 PvP against other players’ parties.',
+      },
+    ],
+  },
   cta: {
     title: 'Your legend starts now',
     text: 'Vaelgrim is on its way: free to play, right in your browser. Join the Discord and follow us on X for news, previews and the launch date.',
@@ -288,8 +347,18 @@ const en: Copy = {
 };
 
 const es: Copy = {
-  nav: { heroes: 'Héroes', world: 'Mundo', loot: 'Botín', endgame: 'Endgame', follow: 'Síguenos en X', discord: 'Discord' },
-  langLabel: 'English',
+  skip: 'Saltar al contenido',
+  nav: {
+    heroes: 'Héroes',
+    world: 'Mundo',
+    loot: 'Botín',
+    endgame: 'Endgame',
+    follow: 'Síguenos en X',
+    discord: 'Discord',
+    main: 'Principal',
+    menu: 'Menú',
+  },
+  langLabel: 'Idioma',
   hero: {
     kicker: 'RPG idle Web3 de fantasía oscura',
     tagline: ['5 héroes.', 'Un mismo destino.', 'Tu propia leyenda.'],
@@ -297,6 +366,8 @@ const es: Copy = {
     play: 'Síguenos en X',
     trailer: 'Descubre el juego',
     discord: 'Únete al Discord',
+    heading: 'Vaelgrim — un RPG idle Web3 de fantasía oscura',
+    alt: 'Arte de Vaelgrim: un guardián encapuchado ante un castillo en ruinas',
   },
   pillars: [
     { icon: 'sword', title: 'Mejora tus héroes', text: 'Habilidades, talentos y equipo para cada uno.' },
@@ -470,6 +541,33 @@ const es: Copy = {
     text: 'Combates de vista lateral con sprites animados, y cada hechizo, golpe y aura dibujado por código.',
     painted: 'Arte promocional',
     combat: 'Combate real del juego',
+  },
+  faq: {
+    kicker: 'Preguntas frecuentes',
+    title: 'Dudas sobre Vaelgrim',
+    lead: 'Qué es el juego, cómo se juega y cuándo podrás entrar.',
+    items: [
+      {
+        q: '¿Qué es Vaelgrim?',
+        a: 'Vaelgrim es un RPG idle Web3 de fantasía oscura en pixel art. Diriges un grupo de tres héroes por cuatro actos, con combates laterales automáticos mientras planeas builds, habilidades, talentos y equipo.',
+      },
+      {
+        q: '¿Vaelgrim es gratis?',
+        a: 'Sí. Vaelgrim es gratis y se juega en el navegador. Llegará muy pronto: únete al Discord o sigue a @playvaelgrim en X para conocer las novedades y la fecha de lanzamiento.',
+      },
+      {
+        q: '¿Hay que descargar algo?',
+        a: 'No. Vaelgrim funciona en un navegador moderno de escritorio o móvil, así que no hay nada que instalar.',
+      },
+      {
+        q: '¿Cuántos héroes puedo usar?',
+        a: 'Tu cuenta tiene cinco clases —Paladin, Barbarian, Archer, Sorceress y Priestess—, pero solo tres marchan a la vez. La experiencia se reparte, así que cada elección cuenta.',
+      },
+      {
+        q: '¿Qué hay que hacer al nivel máximo?',
+        a: 'Al llegar al 60 se abre el endgame: The Breach para botín Legendary, The Endless Descent diario con ranking y PvP 3v3 contra el grupo de otro jugador.',
+      },
+    ],
   },
   cta: {
     title: 'Tu leyenda empieza ahora',

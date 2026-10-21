@@ -1,7 +1,10 @@
+import { useEffect, useRef } from 'react';
 import emblem from '../assets/img/emblem-small.webp';
 import banner from '../assets/img/logo-banner.webp';
 import combatPoster from '../assets/img/combat-poster.webp';
 import painted from '../assets/img/heroes-painted.webp';
+import painted1280 from '../assets/img/heroes-painted-1280.webp';
+import painted768 from '../assets/img/heroes-painted-768.webp';
 import combatMp4 from '../assets/video/combat.mp4';
 import combatWebm from '../assets/video/combat.webm';
 import { useLang } from '../i18n.tsx';
@@ -27,10 +30,13 @@ export function Art() {
         <figure className="panel studs overflow-hidden p-1.5">
           <img
             src={painted}
-            alt={t.art.painted}
+            srcSet={`${painted768} 768w, ${painted1280} 1280w, ${painted} 1536w`}
+            sizes="(min-width: 1200px) 1152px, 100vw"
+            alt={`${t.art.painted} — ${t.art.title}`}
             width={1536}
             height={535}
             loading="lazy"
+            decoding="async"
             className="block w-full"
           />
           <figcaption className="pixel-label px-3 pt-3 pb-1.5 text-[0.6rem] text-muted">
@@ -39,27 +45,68 @@ export function Art() {
         </figure>
         {/* Recorded from the live client (Brimstone Span, level 60 party); loops like a GIF. */}
         <figure className="panel studs overflow-hidden p-1.5">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={combatPoster}
-            width={1340}
-            height={360}
-            aria-label={t.art.combat}
-            className="block h-auto w-full"
-          >
-            <source src={combatWebm} type="video/webm" />
-            <source src={combatMp4} type="video/mp4" />
-          </video>
+          <CombatVideo />
           <figcaption className="pixel-label px-3 pt-3 pb-1.5 text-[0.6rem] text-muted">
             {t.art.combat}
           </figcaption>
         </figure>
       </div>
     </Section>
+  );
+}
+
+/**
+ * The combat clip is decorative and below the fold: keep the poster (and the
+ * initial payload) light, then load and play only when it approaches the view.
+ */
+function CombatVideo() {
+  const { t } = useLang();
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const play = () => {
+      video.play().catch(() => {
+        // Autoplay blocked: the poster stays, which is fine.
+      });
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      play();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          play();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={combatPoster}
+      width={1340}
+      height={360}
+      aria-label={t.art.combat}
+      className="block h-auto w-full"
+    >
+      <source src={combatWebm} type="video/webm" />
+      <source src={combatMp4} type="video/mp4" />
+    </video>
   );
 }
 
@@ -79,6 +126,7 @@ export function CallToAction() {
           width={907}
           height={516}
           loading="lazy"
+          decoding="async"
           className="mx-auto w-full max-w-2xl [mask-image:radial-gradient(ellipse_at_center,#000_45%,transparent_72%)]"
         />
         <h2 className="title-gold -mt-4 font-display text-3xl font-bold sm:text-4xl">{t.cta.title}</h2>

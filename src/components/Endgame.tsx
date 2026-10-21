@@ -13,6 +13,7 @@ export function Endgame() {
         src={horde}
         alt=""
         loading="lazy"
+        decoding="async"
         className="pointer-events-none absolute inset-0 size-full object-cover opacity-45"
       />
       <div className="absolute inset-0 bg-linear-to-b from-void via-void/75 to-void" aria-hidden="true" />

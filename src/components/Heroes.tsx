@@ -10,6 +10,14 @@ import { PixelIcon, type IconName } from './PixelIcon.tsx';
 import { Section, SectionHeading } from './ui.tsx';
 
 const ART: Record<HeroId, string> = { paladin, barbarian, archer, sorceress, priestess };
+/** Intrinsic crop sizes, kept in sync with scripts/optimize-images.mjs. */
+const ART_SIZE: Record<HeroId, [number, number]> = {
+  paladin: [260, 320],
+  barbarian: [340, 400],
+  archer: [300, 350],
+  sorceress: [240, 360],
+  priestess: [230, 420],
+};
 const ICON: Record<HeroId, IconName> = {
   paladin: 'shield',
   barbarian: 'axe',
@@ -118,8 +126,11 @@ function HeroCard({ hero, picked, onToggle }: { hero: Hero; picked: boolean; onT
       <div className="relative h-40 overflow-hidden border-b border-edge bg-void sm:h-52">
         <img
           src={ART[hero.id]}
-          alt={hero.name}
+          alt={`${hero.name} — ${hero.role}`}
+          width={ART_SIZE[hero.id][0]}
+          height={ART_SIZE[hero.id][1]}
           loading="lazy"
+          decoding="async"
           className="size-full object-cover object-top transition duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-panel to-transparent" />

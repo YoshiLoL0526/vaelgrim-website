@@ -14,6 +14,7 @@ export function World() {
         src={castle}
         alt=""
         loading="lazy"
+        decoding="async"
         className="pointer-events-none absolute inset-0 size-full object-cover opacity-[0.12] mix-blend-luminosity"
       />
       <div className="absolute inset-0 bg-linear-to-b from-bg via-bg/80 to-bg" aria-hidden="true" />
