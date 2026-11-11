@@ -43,7 +43,7 @@ jobs:
       # (.ftp-deploy-sync-state.json) en el servidor y en cada push solo sube
       # lo que cambió y borra lo que ya no existe en dist/.
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
