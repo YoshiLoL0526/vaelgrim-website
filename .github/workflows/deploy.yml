@@ -1,0 +1,54 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Un solo despliegue a la vez; si llega otro push, se cancela el que estaba en curso.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      # Valores públicos que se incrustan en el build (ver .env.example).
+      # Se pueden sobrescribir con variables del repositorio o del entorno.
+      VITE_GAME_URL: ${{ vars.VITE_GAME_URL || 'https://play.vaelgrim.com' }}
+      VITE_SITE_URL: ${{ vars.VITE_SITE_URL || 'https://vaelgrim.com' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Typecheck, build y prerenderizado de / y /es/.
+      - name: Build
+        run: npm run build
+
+      # Sincroniza dist/ con el servidor por FTPS. Guarda un fichero de estado
+      # (.ftp-deploy-sync-state.json) en el servidor y en cada push solo sube
+      # lo que cambió y borra lo que ya no existe en dist/.
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          # La cuenta FTP de Hostinger ya entra directamente en public_html.
+          server-dir: ${{ vars.FTP_SERVER_DIR || './' }}

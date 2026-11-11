@@ -1,2 +1,12 @@
+# Normalize text files to LF in the repository.
+* text=auto
 # Shell scripts must keep LF endings to run on both Git Bash (Windows) and Unix.
 *.sh text eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.webp binary
+*.mp4 binary
+*.webm binary
+*.ttf binary

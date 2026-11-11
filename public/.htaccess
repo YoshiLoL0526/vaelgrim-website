@@ -5,6 +5,16 @@ AddDefaultCharset UTF-8
 DirectoryIndex index.html
 Options -Indexes -MultiViews
 
+# The CI deploy (FTP-Deploy-Action) keeps its sync state next to the site; never serve it,
+# nor any other dotfile except .well-known/.
+<FilesMatch "^\.ftp-deploy-sync-state\.json$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\.(?!well-known/) - [F]
+</IfModule>
+
 # --- One canonical URL: HTTPS, no www ----------------------------------------
 # Only touches the production domain, so staging or addon domains keep working.
 # X-Forwarded-Proto avoids a redirect loop when TLS ends at a proxy.

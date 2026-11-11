@@ -1,7 +1,33 @@
 # Vaelgrim — sitio web
 
-Página de presentación del juego (React + TypeScript + Vite + Tailwind CSS v4). Se compila a
-HTML/CSS/JS estáticos: no necesita Node en el servidor.
+[![Deploy](https://github.com/YoshiLoL0526/vaelgrim-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/YoshiLoL0526/vaelgrim-website/actions/workflows/deploy.yml)
+[![Licencia del código: MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-blue.svg)](LICENSE)
+
+Página de presentación del juego [Vaelgrim](https://vaelgrim.com) (React + TypeScript + Vite +
+Tailwind CSS v4). Se compila a HTML/CSS/JS estáticos: no necesita Node en el servidor.
+
+## Requisitos
+
+- Node.js 20.19+ o 22.12+ (lo exige Vite 8) y npm.
+
+## Inicio rápido
+
+```bash
+npm ci
+cp .env.example .env   # y rellena los valores
+npm run dev
+```
+
+## Estructura
+
+| Ruta | Contenido |
+| --- | --- |
+| `src/` | Componentes React, textos (`content.ts`), i18n y estilos. |
+| `src/assets/` | Imágenes optimizadas, vídeo y fuente del juego. |
+| `assets/` | Arte original a resolución completa (fuente de `npm run images`). |
+| `public/` | Ficheros copiados tal cual: `.htaccess`, `404.html`, favicon, imagen OG. |
+| `index.html`, `es/index.html` | Metadatos SEO de cada idioma. |
+| `scripts/` | Optimización de imágenes, prerenderizado y empaquetado para Hostinger. |
 
 ## Comandos
 
@@ -25,7 +51,29 @@ alguna variable, `npm run build` se detiene con un aviso en lugar de generar enl
 
 Son valores públicos que se incrustan al compilar.
 
-## Subir a Hostinger (web estática)
+## Despliegue automático en Hostinger
+
+Cada push a `main` (o una ejecución manual desde la pestaña *Actions*) lanza
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): instala dependencias, compila y
+prerenderiza el sitio y sincroniza `dist/` con el servidor por **FTPS**. Solo sube lo que cambió y
+borra del servidor lo que ya no existe en `dist/` (guarda su estado en
+`.ftp-deploy-sync-state.json`, en el propio servidor).
+
+Configuración, una sola vez, en *Settings → Environments → `production`* del repositorio:
+
+| Tipo | Nombre | Valor |
+| --- | --- | --- |
+| Secret | `FTP_SERVER` | Host FTP de Hostinger (p. ej. `ftp.vaelgrim.com` o la IP del panel). |
+| Secret | `FTP_USERNAME` | Usuario de la cuenta FTP. |
+| Secret | `FTP_PASSWORD` | Contraseña de la cuenta FTP. |
+| Variable (opcional) | `FTP_SERVER_DIR` | Carpeta remota; por defecto `./` (la cuenta FTP ya entra en `public_html`). |
+| Variable (opcional) | `VITE_GAME_URL`, `VITE_SITE_URL` | Sobrescriben los valores por defecto del build. |
+
+Las credenciales FTP solo viven como *secrets* de GitHub: nunca en el código ni en `.env`.
+Conviene crear en Hostinger una cuenta FTP dedicada a este despliegue, limitada a la carpeta del
+sitio.
+
+## Subir a Hostinger a mano (alternativa)
 
 1. Con el `.env` listo, ejecuta `bash scripts/package-hostinger.sh` (en Windows, desde Git Bash):
    compila el sitio y genera `vaelgrim-hostinger.zip` en la raíz del proyecto, con el contenido
@@ -92,3 +140,24 @@ Los textos están en `src/content.ts`, en inglés y español. El idioma se elige
 (`/` en inglés, `/es/` en español), no por el navegador, para que cada versión tenga una URL
 indexable. Los nombres del juego (clases, zonas, jefes) se dejan en inglés.
 La fuente Silkscreen es la misma del juego (licencia OFL, `src/assets/fonts/OFL.txt`).
+
+## Seguridad
+
+El sitio es estático y no maneja datos de usuarios. Las variables de `.env` son públicas (se
+incrustan en el HTML), así que **no pongas nunca secretos en variables `VITE_*`**. Para reportar
+una vulnerabilidad, consulta [SECURITY.md](SECURITY.md).
+
+## Licencia
+
+- **Código fuente**: [MIT](LICENSE).
+- **Arte (creado con herramientas de IA), logotipos, textos promocionales y la marca
+  «Vaelgrim»**: © Raidel Martínez Santos, todos los derechos reservados. No están cubiertos por la licencia MIT; consulta
+  [LICENSE](LICENSE) para el detalle de qué ficheros quedan excluidos.
+- **Sprites de personajes** (visibles en el vídeo de combate `src/assets/video/` y en
+  `combat-poster.webp`): [Tiny RPG Character Asset Pack](https://zerie.itch.io/tiny-rpg-character-asset-pack)
+  de [Zerie](https://zerie.itch.io/), usados bajo su licencia. No están cubiertos por la licencia
+  MIT y no se pueden extraer ni redistribuir.
+- La fuente Silkscreen se distribuye bajo la [SIL Open Font License](src/assets/fonts/OFL.txt).
+
+Vaelgrim es un proyecto independiente, sin afiliación, respaldo ni patrocinio de Blizzard
+Entertainment.
